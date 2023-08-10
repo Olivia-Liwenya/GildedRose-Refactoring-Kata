@@ -13,7 +13,7 @@ class GildedRose(object):
         return min(item.quality, self.general_quality_limit)
     
     def sell_in_limit(self, item):
-        return max(item.quality, 0)
+        return max(item.sell_in, 0)
     
 
     def Aged_change(self, item):
@@ -30,10 +30,11 @@ class GildedRose(object):
         else:
             item.quality = 0
 
-        item.quality = self.quality_limit(item)
 
         item.sell_in = item.sell_in - 1
         item.sell_in = self.sell_in_limit(item)
+
+        item.quality = self.quality_limit(item)
 
 
     def Backstage_change(self, item):
@@ -49,29 +50,32 @@ class GildedRose(object):
         else:
             item.quality = 0
 
-        item.quality = self.quality_limit(item)
-
         item.sell_in = item.sell_in - 1
         item.sell_in = self.sell_in_limit(item)
 
+        item.quality = self.quality_limit(item)
+
     def Sulfuras_change(self, item):
         item.quality = self.special_quality_limit
+
         item.sell_in = item.sell_in - 1
         item.sell_in = self.sell_in_limit(item)
 
     def Conjured_change(self, item):
+        item.sell_in = item.sell_in - 1
+        item.sell_in = self.sell_in_limit(item)
+
         item.quality = item.quality - 2
         item.quality = self.quality_limit(item)
 
-        item.sell_in = item.sell_in - 1
-        item.sell_in = self.sell_in_limit(item)
-
 
     def General_change(self, item):
-        item.quality = item.quality - 1
-        item.quality = self.quality_limit(item)
+        
         item.sell_in = item.sell_in - 1
         item.sell_in = self.sell_in_limit(item)
+
+        item.quality = item.quality - 1
+        item.quality = self.quality_limit(item)
 
     
 
